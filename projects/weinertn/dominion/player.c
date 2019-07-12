@@ -194,6 +194,7 @@ int main(int argc, char* argv[]) {
 		} else
 		if(COMPARE(command, show) == 0) {
 			if(gameStarted == FALSE) continue;
+			printf("In show");
 			printHand(currentPlayer, game);
 			printPlayed(currentPlayer, game);
 			//printDiscard(currentPlayer, game);
