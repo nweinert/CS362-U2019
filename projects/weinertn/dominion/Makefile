@@ -1,4 +1,4 @@
-CFLAGS= -Wall -fpic -coverage -lm -std=c99
+CFLAGS= -Wall -g -fpic -coverage -lm -std=c99
 
 rngs.o: rngs.h rngs.c
 	gcc -c rngs.c -g  $(CFLAGS)
@@ -9,6 +9,15 @@ dominion.o: dominion.h dominion.c rngs.o
 playdom: dominion.o playdom.c
 	gcc -o playdom playdom.c -g dominion.o rngs.o $(CFLAGS)
 #To run playdom you need to entere: ./playdom <any integer number> like ./playdom 10*/
+
+randomtest1: randomtestcard1.c dominion.o rngs.o
+	gcc -o randomtest1 randomtestcard1.c dominion.o rngs.o $(CFLAGS)
+
+randomtest2: randomtestcard2.c dominion.o rngs.o
+	gcc -o randomtest2 randomtestcard2.c dominion.o rngs.o $(CFLAGS)
+
+randomtest3: randomtestcard3.c dominion.o rngs.o
+	gcc -o randomtest3 randomtestcard3.c dominion.o rngs.o $(CFLAGS)
 
 unittest1: unittest1.c dominion.o rngs.o
 	gcc -o unittest1 unittest1.c dominion.o rngs.o $(CFLAGS)
@@ -55,6 +64,14 @@ testAll: dominion.o testSuite.c
 interface.o: interface.h interface.c
 	gcc -c interface.c -g  $(CFLAGS)
 
+randomtestresults: randomtests
+	./randomtest1 &> randomtestresults.out
+	./randomtest2 >> randomtestresults.out
+	./randomtest3 >> randomtestresults.out
+	gcov dominion.c -b -f >> randomtestresults.out
+	cat dominion.c.gcov >> randomtestresults.out
+
+
 unittestresults: unittests
 	./unittest1 &> unittestresults.out
 	./unittest2 >> unittestresults.out
@@ -66,7 +83,7 @@ unittestresults: unittests
 	./cardtest3 >> unittestresults.out
 	./cardtest4 >> unittestresults.out
 	./cardtest5 >> unittestresults.out
-	gcov dominion.c -b >> unitetestresults.out
+	gcov dominion.c -b -f >> unittestresults.out
 	cat dominion.c.gcov >> unittestresults.out
 
 runtests: testDrawCard 
@@ -79,6 +96,8 @@ player: player.c interface.o
 	gcc -o player player.c -g  dominion.o rngs.o interface.o $(CFLAGS)
 
 unittests: unittest1 unittest2 unittest3 unittest4 unittest5 cardtest1 cardtest2 cardtest3 cardtest4 cardtest5
+
+randomtests: randomtest1 randomtest2 randomtest3 
 
 all: playdom player 
 
