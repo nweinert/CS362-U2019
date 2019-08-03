@@ -1,0 +1,53 @@
+Nick Weinert (weinertn) 7/30/2019
+
+	Unit Test Description
+The testIsValid() function is used to verify that an input URL is valid. To do this,
+the function first calls an overloaded testIsValid function that takes as input an array
+of objects and a long data type value for the options. The initial testIsValid first calls
+this overloaded function with the array containing the parts of the testURL and a flag
+to allow all schemes for testing. The overloaded function then loops through each parts
+of the testURL checking for validity. If any part of the testURL does not match the expected
+result, the test fails and an 'X' is printed to the screen. 
+After this first overloaded function call, testIsValid then clears out the testParts and
+calls the overloaded function again, this time with slightly less strict constraints and a
+wider range on what is considered valid.
+
+	Unit Test Data
+The 5 parts tested in each URL are the scheme, authority, port, path, and query. The number
+of test cases for each of these is below: 
+	testUrlScheme: 8
+	testUrlAuthority: 20
+	testUrlPort: 9
+	testPath: 10
+	testUrlPathOptions: 15
+	testUrlQuery: 3
+The tests are run once with testUrlScheme, testUrlAuthority, testUrlPort, testPath, testUrlQuery
+and another time with testUrlScheme, testUrlAuthority, testUrlPort, testUrlPathOptions, testUrlQuery.
+Given this and these numbers, it appears that (8*20*9*10*3)+(8*20*9*15*3) = 43,200+64,800 = 108,000
+URL's are tested for. 
+
+
+	Unit Test Data Examples
+Five valid URLs:
+	"ftp://www.google.com:80/test1?action=view"
+	"http://255.com:0/test1//file?action=edit&mode=up"
+	"h3t://255.255.255.255"
+	"http://go.au:65535/t123"
+	"ftp://0.0.0.0:0/test1/?action=edit&mode=up"
+	
+Five invalid URLs:
+	"3ht://www.google.com:80/test1?action=view"
+	"http://255.com:0/#/file?action=edit&mode=up"
+	"h3t://256.256.256.256"
+	"http://go.au:65536/t123"
+	"ftp://:0/test1/?action=edit&mode=up"
+
+	Unit Test Techniques
+The first thing that jumped out at me was the complexity and sheer number of tests performed 
+by these unit tests. Those factors were far above what I designed for the purposes of this class. 
+With that in mind, the concepts behind these tests were no different the ones used to develop
+the tests for assignment 3. It seems that the concepts do not change, but the application
+of those concepts in the real world is both at a higher scale and more thorough than than 
+what was done for this class. Because of that it is clear that I need to do a a better job
+thinking through my test cases to ensure that I am thoroughly checking everything that could
+possibly go wrong. 
